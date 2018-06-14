@@ -15,12 +15,22 @@ public class ConexaoBD {
         if (conn == null) {
             try {
                 conn = DriverManager.getConnection(URL, USER, PASS);
-            } catch (SQLException e) {
-                 System.out.println(e.getMessage());
+            } catch (SQLException ex) {
+                 System.out.println("ConexaoBD.getConnection() -> "+ex.getMessage());
                  JOptionPane.showMessageDialog(null, "Problema ao conectar ao Banco de Dados.");
             }
         }
-        
         return conn;
+    }
+    
+    public static void close(){
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                 System.out.println("ConexaoBD.close() -> "+ex.getMessage());
+                 JOptionPane.showMessageDialog(null, "Erro ao fechar conexão ao Banco.");
+            }
+        }
     }
 }
