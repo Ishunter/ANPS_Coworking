@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class LocacaoDAO {
+
     private static LocacaoDAO instance = null;
 
     private LocacaoDAO() {
@@ -27,9 +28,8 @@ public class LocacaoDAO {
         Connection conn = control.ConexaoBD.getConnection();
 
         String sql = "INSERT INTO public.locacao(datafinal, datainicial, qtdestacoeslocadas, funcionario, cliente, ambiente) VALUES (?, ?, ?, ?, ?, ?)";
-        
+
         try (PreparedStatement query = conn.prepareStatement(sql)) {
-            // falta os recursos
             query.setDate(1, utilToSql(locacao.getDataFinal()));
             query.setDate(2, utilToSql(locacao.getDataInicial()));
             query.setInt(3, locacao.getQtdEstacoesLocadas());
@@ -41,7 +41,24 @@ public class LocacaoDAO {
             System.err.println("LocacaoDAO.create() -> " + ex.getMessage());
             JOptionPane.showMessageDialog(null, "Problema ao inserir locação no banco.");
         }
-    }
+
+        if (!locacao.getRecurso().isEmpty()) {
+            for (Recurso r : locacao.getRecurso()) {
+                sql = "INSERT INTO rl_recursos(cliente, ambiente, recurso) VALUES (?, ?, ?)";
+
+                try (PreparedStatement query = conn.prepareStatement(sql)) {
+                    query.setString(1, locacao.getCliente().getCpf());
+                    query.setString(2, locacao.getAmbiente().getNome());
+                    query.setString(3, r.getNome());
+                    query.execute();
+                } catch (SQLException ex) {
+                    System.err.println("LocacaoDAO.create() -> " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "Problema ao inserir locação no banco.");
+                }
+            }
+        }
+
+    
 
     public Locacao read(String nome) {
         Connection conn = control.ConexaoBD.getConnection();
@@ -51,11 +68,14 @@ public class LocacaoDAO {
             query.setString(1, nome);
             ResultSet rs = query.executeQuery();
             if (rs.next()) {
+
                 Locacao l = new Locacao();
+                /*
                 l.setCusto(rs.getDouble("custo"));
                 l.setDescricao(rs.getString("descricao"));
                 l.setNome(rs.getString("nome"));
                 l.setQtdEstacoesTrabalho(rs.getInt("qtdestacoestrabalho"));
+                 */
                 return l;
             }
         } catch (SQLException ex) {
@@ -90,9 +110,11 @@ public class LocacaoDAO {
             ResultSet rs = query.executeQuery();
             while (rs.next()) {
                 Locacao l = new Locacao();
+                /*
                 l.setLogin(rs.getInt("login"));
                 l.setNome(rs.getString("nome"));
                 l.setSenha(rs.getString("senha"));
+                 */
                 r.add(l);
             }
         } catch (SQLException ex) {
@@ -101,7 +123,7 @@ public class LocacaoDAO {
         }
         return r;
     }
-    
+
     private Date SqlToUtil(java.sql.Date sql) {
         try {
             String strData = sql.toString();
@@ -112,7 +134,7 @@ public class LocacaoDAO {
         }
         return null;
     }
-    
+
     private java.sql.Date utilToSql(Date date) {
         try {
             String strData = date.toString();

@@ -125,3 +125,26 @@ WITH (
 
 ALTER TABLE public.locacao
     OWNER to coworking;
+
+-- Table: rl_recursos
+
+-- DROP TABLE rl_recursos;
+
+CREATE TABLE rl_recursos
+(
+  cliente character varying NOT NULL,
+  ambiente character varying NOT NULL,
+  recurso character varying NOT NULL,
+  CONSTRAINT rl_recursos_pkey PRIMARY KEY (cliente, ambiente, recurso),
+  CONSTRAINT rl_recursos_cliente_fkey FOREIGN KEY (cliente, ambiente)
+      REFERENCES locacao (cliente, ambiente) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT rl_recursos_recurso_fkey FOREIGN KEY (recurso)
+      REFERENCES recurso (nome) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE rl_recursos
+  OWNER TO postgres;
