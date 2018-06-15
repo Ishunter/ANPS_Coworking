@@ -6,13 +6,13 @@ import java.util.ArrayList;
 FuncionarioDAO
 GerenteDAO
 RecursoDAO
-*/
+ */
 
 public class Coworking {
-	
+
     public static void main(String[] args) {
-		ArrayList<Object> array = new ArrayList<>();
-	
+        ArrayList<Object> array = new ArrayList<>();
+
     }
-    
+
 }
