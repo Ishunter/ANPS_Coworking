@@ -1,4 +1,4 @@
-package coworking;
+package _init;
 
 public class Install {
     
@@ -7,8 +7,8 @@ public class Install {
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
    static final String DB_URL = "jdbc:mysql://localhost/";
 
-   static final String USER = "username";
-   static final String PASS = "password";
+   static final String USER = "coworking";
+   static final String PASS = "1234";
    
    public static void main(String[] args) {
        // Conectar no banco, se não conseguir encerrar.

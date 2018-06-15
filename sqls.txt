@@ -1,0 +1,127 @@
+CREATE USER coworking WITH
+	LOGIN
+	SUPERUSER
+	CREATEDB
+	CREATEROLE
+	INHERIT
+	NOREPLICATION
+	CONNECTION LIMIT -1
+	PASSWORD '1234';
+
+CREATE DATABASE coworking
+    WITH 
+    OWNER = coworking
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
+
+CREATE TABLE public.funcionario
+(
+    login integer NOT NULL,
+    nome character varying(60),
+    senha character varying(32),
+    PRIMARY KEY (login)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.funcionario
+    OWNER to coworking;
+
+CREATE TABLE public.gerente
+(
+    login integer,
+    CONSTRAINT login FOREIGN KEY (login)
+        REFERENCES public.funcionario (login) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.gerente
+    OWNER to coworking;
+
+CREATE TABLE public.ambiente
+(
+    custo double precision NOT NULL,
+    descricao character varying,
+    nome character varying,
+    qtdestacoestrabalho" integer NOT NULL,
+    PRIMARY KEY (nome)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.ambiente
+    OWNER to coworking;
+
+CREATE TABLE public.cliente
+(
+    atividade character varying,
+    cpf character varying,
+    endereco character varying,
+    estainadimplente boolean,
+    idade integer,
+    nome character varying,
+    observacao character varying,
+    PRIMARY KEY (cpf)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.cliente
+    OWNER to coworking;
+
+
+CREATE TABLE public.recurso
+(
+    custo double precision,
+    descricao character varying,
+    nome character varying,
+    PRIMARY KEY (nome)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.recurso
+    OWNER to coworking;
+
+CREATE TABLE public.locacao
+(
+    datafinal date NOT NULL,
+    datainicial date NOT NULL,
+    qtdestacoeslocadas integer NOT NULL,
+    recurso character varying,
+    funcionario integer,
+    cliente character varying,
+    ambiente character varying,
+    PRIMARY KEY (cliente, ambiente),
+    CONSTRAINT recurso FOREIGN KEY (recurso)
+        REFERENCES public.recurso (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT funcionario FOREIGN KEY (funcionario)
+        REFERENCES public.funcionario (login) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT cliente FOREIGN KEY (cliente)
+        REFERENCES public.cliente (cpf) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT ambiente FOREIGN KEY (ambiente)
+        REFERENCES public.ambiente (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.locacao
+    OWNER to coworking;
