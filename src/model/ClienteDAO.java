@@ -23,7 +23,7 @@ public class ClienteDAO {
     public void create(Cliente cliente) {
         Connection conn = control.ConexaoBD.getConnection();
 
-        String sql = "INSERT INTO cliente(atividade, cpf, endereco, estainadimplente, idade, nome, observacao VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO public.cliente (atividade, cpf, endereco, estainadimplente, idade, nome, observacao) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement query = conn.prepareStatement(sql)) {
             query.setString(1, cliente.getAtividade());
             query.setString(2, cliente.getCpf());
@@ -55,6 +55,7 @@ public class ClienteDAO {
                 c.setIdade(rs.getInt("idade"));
                 c.setNome(rs.getString("nome"));
                 c.setObservacao(rs.getString("observacao"));
+				return c;
             }
         } catch (SQLException ex) {
             System.err.println("ClienteDAO.read() -> " + ex.getMessage());
@@ -86,7 +87,7 @@ public class ClienteDAO {
         Connection conn = control.ConexaoBD.getConnection();
         ArrayList<Cliente> r = new ArrayList<>();
             
-        String sql = "SELECT * FROM public.ambiente";
+        String sql = "SELECT * FROM public.cliente";
         try (PreparedStatement query = conn.prepareStatement(sql)) {
             ResultSet rs = query.executeQuery();
             while (rs.next()) {

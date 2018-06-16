@@ -36,12 +36,12 @@ public class RecursoDAO {
         }
     }
 
-    public Recurso read(int login) {
+    public Recurso read(String nome) {
         Connection conn = control.ConexaoBD.getConnection();
 
         String sql = "SELECT * FROM public.recurso WHERE nome like ?";
         try (PreparedStatement query = conn.prepareStatement(sql)) {
-            query.setInt(1, login);
+            query.setString(1, nome);
             ResultSet rs = query.executeQuery();
             if (rs.next()) {
                 Recurso f = new Recurso();

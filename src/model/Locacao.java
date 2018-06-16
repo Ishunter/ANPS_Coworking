@@ -1,12 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Locacao {
 
-    private Date dataFinal;
-    private Date dataInicial;
+    private String dataFinal;
+    private String dataInicial;
     private int qtdEstacoesLocadas;
     private ArrayList<Recurso> recurso;
     private Funcionario funcionario;
@@ -16,7 +15,7 @@ public class Locacao {
     public Locacao() {
     }
 
-    public Locacao(Date dataFinal, Date dataInicial, int qtdEstacoesLocadas, ArrayList<Recurso> recurso, Funcionario funcionario, Cliente cliente, Ambiente ambiente) {
+    public Locacao(String dataFinal, String dataInicial, int qtdEstacoesLocadas, ArrayList<Recurso> recurso, Funcionario funcionario, Cliente cliente, Ambiente ambiente) {
         this.dataFinal = dataFinal;
         this.dataInicial = dataInicial;
         this.qtdEstacoesLocadas = qtdEstacoesLocadas;
@@ -26,25 +25,25 @@ public class Locacao {
         this.ambiente = ambiente;
     }
 
-    public Locacao(Date dataFinal, Date dataInicial, int qtdEstacoesLocadas) {
+    public Locacao(String dataFinal, String dataInicial, int qtdEstacoesLocadas) {
         this.dataFinal = dataFinal;
         this.dataInicial = dataInicial;
         this.qtdEstacoesLocadas = qtdEstacoesLocadas;
     }
 
-    public Date getDataFinal() {
+    public String getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(Date dataFinal) {
+    public void setDataFinal(String dataFinal) {
         this.dataFinal = dataFinal;
     }
 
-    public Date getDataInicial() {
+    public String getDataInicial() {
         return dataInicial;
     }
 
-    public void setDataInicial(Date dataInicial) {
+    public void setDataInicial(String dataInicial) {
         this.dataInicial = dataInicial;
     }
 
