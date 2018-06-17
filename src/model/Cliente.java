@@ -79,4 +79,15 @@ public class Cliente {
         this.observacao = observacao;
     }
 
+	public void print(){
+		System.out.println("--- Cliente ---");
+		System.out.println("Atividade: "+this.Atividade);
+		System.out.println("cpf: "+this.cpf);
+		System.out.println("endereco: "+this.endereco);
+		System.out.println("estaInadimplente: "+this.estaInadimplente);
+		System.out.println("idade: "+this.idade);
+		System.out.println("nome: "+this.nome);
+		System.out.println("observacao "+this.observacao);
+		
+	}
 }

@@ -2,6 +2,7 @@ package _init;
 
 import java.util.ArrayList;
 import model.*;
+import view.*;
 
 public class Coworking {
 
@@ -31,20 +32,9 @@ public class Coworking {
 		
 		//LocacaoDAO.getInstance().create(l1);
 		//LocacaoDAO.getInstance().update(l1);
-		Locacao l1 = LocacaoDAO.getInstance().read("cpf", "ambiente 1");
+		//Locacao l1 = LocacaoDAO.getInstance().read("cpf", "ambiente 1");
 		
-		list(l1);
-    }
-	
-	public static void list(Locacao l1){
-		System.out.println("DI:"+l1.getDataInicial()
-			+"\nDF:"+l1.getDataFinal()
-			+"\n"+l1.getCliente().getCpf()
-			+"\n"+l1.getAmbiente().getNome()
-			+"\n"+l1.getFuncionario().getNome());
-		ArrayList<Recurso> array = l1.getRecurso();
-		for(Recurso a : array){
-			System.out.println(a.getNome() +" "+a.getCusto());
-		}
+		//l1.print();
+		new FrameFuncionario().setVisible(true);
 	}
 }

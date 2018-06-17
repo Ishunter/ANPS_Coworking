@@ -1,7 +1,7 @@
 package _init;
 
 public class Install {
-    
+	// 1024x768	
    // (((7+8,5+7)/3*5)+(((8,1)+(4,5*2)+(3*2)+(3*5))/2))/10
     
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  

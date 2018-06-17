@@ -38,5 +38,10 @@ public class Recurso {
 		this.nome = nome;
 	}
 	
-	
+	public void print(){
+		System.out.println("--- Recurso ---");
+		System.out.println("custo: "+this.custo);
+		System.out.println("descricao: "+this.descricao);
+		System.out.println("nome: "+this.nome);
+	}
 }

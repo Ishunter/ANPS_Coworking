@@ -87,5 +87,17 @@ public class Locacao {
         this.ambiente = ambiente;
     }
     
-    
+    public void print(){
+		System.out.println("--- Locacao ---");
+		System.out.println("dataFinal: "+this.dataFinal);
+		System.out.println("dataInicial: "+this.dataInicial);
+		System.out.println("qtdEstacoesLocadas "+this.qtdEstacoesLocadas);
+		recurso.forEach((r) -> {
+			r.print();
+		});
+		funcionario.print();
+		cliente.print();
+		ambiente.print();
+		System.out.println("--- FIM Locacao ---");
+	}
 }

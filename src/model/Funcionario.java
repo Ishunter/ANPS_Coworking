@@ -38,5 +38,10 @@ public class Funcionario {
 		this.senha = senha;
 	}
 
-
+	public void print(){
+		System.out.println("--- Funcionario ---");
+		System.out.println("login: "+this.login);
+		System.out.println("nome: "+this.nome);
+		System.out.println("senha: "+this.senha);
+	}
 }
