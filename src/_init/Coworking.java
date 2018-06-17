@@ -1,5 +1,6 @@
 package _init;
 
+import control.ControladorFuncionario;
 import java.util.ArrayList;
 import model.*;
 import view.*;
@@ -35,6 +36,7 @@ public class Coworking {
 		//Locacao l1 = LocacaoDAO.getInstance().read("cpf", "ambiente 1");
 		
 		//l1.print();
-		new FrameFuncionario().setVisible(true);
+		ControladorFuncionario.getInstance().setFuncionarioLogado(0);
+		new FrameLocacao().setVisible(true);
 	}
 }

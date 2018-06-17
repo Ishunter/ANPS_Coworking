@@ -8,7 +8,8 @@ import model.Funcionario;
 import model.FuncionarioDAO;
 
 public class ControladorFuncionario {
-
+	private Funcionario funcionarioLogado = null;
+	
 	private static ControladorFuncionario instance = null;
 
 	private ControladorFuncionario() {
@@ -39,8 +40,12 @@ public class ControladorFuncionario {
 		}
 		return array;
 	}
-
+	
 	public void salvar(String login, String nome, String senha1, String senha2) throws ExceptionSalvoComSucesso, ExceptionInput, ExceptionCancelar {
+		// not null check
+		if (login.isEmpty() || nome.isEmpty()) {
+			throw new ExceptionInput("Por favor preencher campos.");
+		}
 		// Senha Check
 		if (senha1.length() < 4 && senha1.length() < 8) {
 			throw new ExceptionInput("Senha deve ter ao menos 4 e no maximo 8 caracteres.");
@@ -68,4 +73,18 @@ public class ControladorFuncionario {
 	private boolean isLoginInUse(String login) {
 		return FuncionarioDAO.getInstance().read(Integer.valueOf(login)) != null;
 	}
+
+	public String getFuncionarioLogado() {
+		return funcionarioLogado.getNome();
+	}
+	
+	public Funcionario getFunc() {
+		return funcionarioLogado;
+	}
+
+	public void setFuncionarioLogado(int funcionarioLogado) {
+		this.funcionarioLogado = FuncionarioDAO.getInstance().read(funcionarioLogado);
+	}
+	
+	
 }

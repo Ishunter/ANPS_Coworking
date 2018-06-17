@@ -9,11 +9,13 @@ import javax.swing.JOptionPane;
 
 public class FrameFuncionario extends javax.swing.JFrame {
 
+	private boolean loaded = false;
+
 	public FrameFuncionario() {
 		initComponents();
 		updateComboBox();
+		loaded = true;
 	}
-
 
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,9 +43,6 @@ public class FrameFuncionario extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(720, 480));
         setSize(new java.awt.Dimension(0, 0));
 
-        jPanel1.setMaximumSize(null);
-        jPanel1.setMinimumSize(null);
-        jPanel1.setPreferredSize(null);
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         LbFuncionario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -209,7 +208,7 @@ public class FrameFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CbFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbFuncionarioActionPerformed
-		if (this.CbFuncionario.getItemCount() != 0) {
+		if (evt.getSource() == this.CbFuncionario && loaded && this.CbFuncionario.getItemCount() != 0) {
 			String str = this.CbFuncionario.getSelectedItem().toString();
 			str = str.substring(0, str.indexOf("#"));
 			ArrayList<String> funcionario = ControladorFuncionario.getInstance().getFuncionario(str);
@@ -226,9 +225,9 @@ public class FrameFuncionario extends javax.swing.JFrame {
 		} catch (ExceptionSalvoComSucesso ex) {
 			updateComboBox();
 		} catch (ExceptionInput ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-		} catch (ExceptionCancelar ex){
-			
+			JOptionPane.showMessageDialog(null, ex.getMessage());
+		} catch (ExceptionCancelar ex) {
+
 		}
     }//GEN-LAST:event_BtSalvarActionPerformed
 
@@ -279,22 +278,22 @@ public class FrameFuncionario extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-	private void updateComboBox(){
+	private void updateComboBox() {
 		this.CbFuncionario.removeAllItems();
-		for(String funcionario : ControladorFuncionario.getInstance().getAllFuncionarios()){
+		for (String funcionario : ControladorFuncionario.getInstance().getAllFuncionarios()) {
 			this.CbFuncionario.addItem(funcionario);
 		}
 		clearFields();
 	}
-	
-	private void updateFields(String login, String nome, String senha){
+
+	private void updateFields(String login, String nome, String senha) {
 		this.TfLogin.setText(login);
 		this.TfNome.setText(nome);
 		this.PfSenha1.setText(senha);
 		this.PfSenha2.setText(senha);
 	}
-	
-	private void clearFields(){
+
+	private void clearFields() {
 		updateFields("", "", "");
 	}
 }

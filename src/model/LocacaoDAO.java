@@ -23,7 +23,7 @@ public class LocacaoDAO {
 
 	public void create(Locacao locacao) {
 		Connection conn = control.ConexaoBD.getConnection();
-		
+
 		String sql = "INSERT INTO public.locacao(datafinal, datainicial, qtdestacoeslocadas, funcionario, cliente, ambiente) VALUES (?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement query = conn.prepareStatement(sql)) {
 			query.setString(1, locacao.getDataFinal());
@@ -33,11 +33,11 @@ public class LocacaoDAO {
 			query.setString(5, locacao.getCliente().getCpf());
 			query.setString(6, locacao.getAmbiente().getNome());
 			query.execute();
+			RlRecursosDelete(locacao);
 			if (!locacao.getRecurso().isEmpty()) {
 				RlRecursosCreate(locacao);
 			}
 		} catch (SQLException ex) {
-			RlRecursosDelete(locacao);
 			System.err.println("LocacaoDAO.create() -> " + ex.getMessage());
 			JOptionPane.showMessageDialog(null, "Problema ao inserir locação no banco.");
 		}
@@ -59,7 +59,7 @@ public class LocacaoDAO {
 				l.setFuncionario(FuncionarioDAO.getInstance().read(rs.getInt("funcionario")));
 				l.setCliente(ClienteDAO.getInstance().read(rs.getString("cliente")));
 				l.setAmbiente(AmbienteDAO.getInstance().read(rs.getString("ambiente")));
-				l.setRecurso(RlRecursosGetAll(cliente,ambiente));
+				l.setRecurso(RlRecursosGetAll(cliente, ambiente));
 				return l;
 			}
 		} catch (SQLException ex) {
@@ -93,7 +93,7 @@ public class LocacaoDAO {
 		Connection conn = control.ConexaoBD.getConnection();
 		ArrayList<Locacao> r = new ArrayList<>();
 
-		String sql = "SELECT (cliente, ambiente) FROM public.locacao";
+		String sql = "SELECT cliente, ambiente FROM public.locacao";
 		try (PreparedStatement query = conn.prepareStatement(sql)) {
 			ResultSet rs = query.executeQuery();
 			while (rs.next()) {
@@ -105,10 +105,11 @@ public class LocacaoDAO {
 		}
 		return r;
 	}
-	
+
 	private void RlRecursosCreate(Locacao locacao) {
 		// TODO: fazer uma query - pode gerar incosistencia se der pau em uma transação no meio
 		Connection conn = control.ConexaoBD.getConnection();
+
 		for (Recurso r : locacao.getRecurso()) {
 			String sql = "INSERT INTO public.rl_recursos (cliente, ambiente, recurso) VALUES (?, ?, ?)";
 			try (PreparedStatement queryRecursos = conn.prepareStatement(sql)) {
@@ -122,39 +123,38 @@ public class LocacaoDAO {
 			}
 		}
 	}
-	
-	private void RlRecursosDelete(Locacao locacao){
-		// TODO: fazer uma query
-		Connection conn = control.ConexaoBD.getConnection();
-		for (Recurso r : locacao.getRecurso()) {
-			String sql = "DELETE FROM public.rl_recursos WHERE cliente=? and ambiente=? and recurso=?";
-			try (PreparedStatement queryRecursos = conn.prepareStatement(sql)) {
-				queryRecursos.setString(1, locacao.getCliente().getCpf());
-				queryRecursos.setString(2, locacao.getAmbiente().getNome());
-				queryRecursos.setString(3, r.getNome());
-			} catch (SQLException ex) {
-				System.err.println("LocacaoDAO.RlRecursosDelete() -> " + ex.getMessage());
-				JOptionPane.showMessageDialog(null, "Problema ao deletar do banco.");
-			}
-		}
-	}
-	
-	private ArrayList<Recurso> RlRecursosGetAll(String cliente, String ambiente){
-		Connection conn = control.ConexaoBD.getConnection();
-        ArrayList<Recurso> r = new ArrayList<>();
 
-        String sql = "SELECT * FROM public.rl_recursos WHERE cliente=? and ambiente=? ";
-        try (PreparedStatement queryRecursos = conn.prepareStatement(sql)) {
+	private void RlRecursosDelete(Locacao locacao) {
+		Connection conn = control.ConexaoBD.getConnection();
+
+		String sql = "DELETE FROM public.rl_recursos WHERE cliente=? and ambiente=?";
+		try (PreparedStatement queryRecursos = conn.prepareStatement(sql)) {
+			queryRecursos.setString(1, locacao.getCliente().getCpf());
+			queryRecursos.setString(2, locacao.getAmbiente().getNome());
+			queryRecursos.execute();
+		} catch (SQLException ex) {
+			System.err.println("LocacaoDAO.RlRecursosDelete() -> " + ex.getMessage());
+			JOptionPane.showMessageDialog(null, "Problema ao deletar do banco.");
+		}
+
+	}
+
+	private ArrayList<Recurso> RlRecursosGetAll(String cliente, String ambiente) {
+		Connection conn = control.ConexaoBD.getConnection();
+		ArrayList<Recurso> r = new ArrayList<>();
+
+		String sql = "SELECT * FROM public.rl_recursos WHERE cliente=? and ambiente=? ";
+		try (PreparedStatement queryRecursos = conn.prepareStatement(sql)) {
 			queryRecursos.setString(1, cliente);
 			queryRecursos.setString(2, ambiente);
-            ResultSet rs = queryRecursos.executeQuery();
-            while (rs.next()) {
-                r.add(RecursoDAO.getInstance().read(rs.getString("recurso")));
-            }
-        } catch (SQLException ex) {
-            System.err.println("locacaoDAO.RlRecursosGetAll() -> " + ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Problema ao ler recurso do banco.");
-        }
-        return r;
+			ResultSet rs = queryRecursos.executeQuery();
+			while (rs.next()) {
+				r.add(RecursoDAO.getInstance().read(rs.getString("recurso")));
+			}
+		} catch (SQLException ex) {
+			System.err.println("locacaoDAO.RlRecursosGetAll() -> " + ex.getMessage());
+			JOptionPane.showMessageDialog(null, "Problema ao ler recurso do banco.");
+		}
+		return r;
 	}
 }

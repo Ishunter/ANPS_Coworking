@@ -101,7 +101,51 @@ public class RecursoDAO {
             }
         } catch (SQLException ex) {
             System.err.println("RecursoDAO.getAll() -> " + ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Problema ao listar todos recursos do banco.");
+            JOptionPane.showMessageDialog(null, "Problema ao listar todos recursos.");
+        }
+        return r;
+    }
+	
+	public ArrayList<Recurso> getAlocados(String cliente, String ambiente) {
+        Connection conn = control.ConexaoBD.getConnection();
+        ArrayList<Recurso> r = new ArrayList<>();
+
+        String sql = "SELECT * FROM public.recurso WHERE nome IN (SELECT recurso FROM public.rl_recursos WHERE cliente = ? and ambiente = ?)";
+        try (PreparedStatement query = conn.prepareStatement(sql)) {
+			query.setString(1, cliente);
+			query.setString(2, ambiente);
+            ResultSet rs = query.executeQuery();
+            while (rs.next()) {
+                Recurso f = new Recurso();
+                f.setCusto(rs.getDouble("custo"));
+                f.setDescricao(rs.getString("descricao"));
+                f.setNome(rs.getString("nome"));
+                r.add(f);
+            }
+        } catch (SQLException ex) {
+            System.err.println("RecursoDAO.getAlocados() -> " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Problema ao listar todos recursos alocados.");
+        }
+        return r;
+    }
+	
+	public ArrayList<Recurso> getDisponiveis() {
+        Connection conn = control.ConexaoBD.getConnection();
+        ArrayList<Recurso> r = new ArrayList<>();
+
+        String sql = "SELECT * FROM public.recurso WHERE nome NOT IN (SELECT recurso FROM public.rl_recursos)";
+        try (PreparedStatement query = conn.prepareStatement(sql)) {
+            ResultSet rs = query.executeQuery();
+            while (rs.next()) {
+                Recurso f = new Recurso();
+                f.setCusto(rs.getDouble("custo"));
+                f.setDescricao(rs.getString("descricao"));
+                f.setNome(rs.getString("nome"));
+                r.add(f);
+            }
+        } catch (SQLException ex) {
+            System.err.println("RecursoDAO.getAlocados() -> " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Problema ao listar todos recursos alocados.");
         }
         return r;
     }
