@@ -11,19 +11,19 @@ import javax.swing.JOptionPane;
 
 public class FrameLocacao extends javax.swing.JFrame {
 
-	private boolean loaded = false;
+    private boolean loaded = false;
 
-	public FrameLocacao() {
-		ControladorRecurso.getInstance().novaLocacao();
-		initComponents();
-		this.TfCusto.setEditable(false);
-		this.TfFuncionario.setEditable(false);
-		updateComboBox();
-		updateLtAdicionado();
-		loaded = true;
-	}
+    public FrameLocacao() {
+        ControladorRecurso.getInstance().novaLocacao();
+        initComponents();
+        this.TfCusto.setEditable(false);
+        this.TfFuncionario.setEditable(false);
+        updateComboBox();
+        updateLtAdicionado();
+        loaded = true;
+    }
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -144,6 +144,11 @@ public class FrameLocacao extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         jPanel2.add(LbAmbiente, gridBagConstraints);
 
+        CbAmbiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbAmbienteActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -343,6 +348,11 @@ public class FrameLocacao extends javax.swing.JFrame {
         jPanel2.add(BtSalvar, gridBagConstraints);
 
         BtVoltar.setText("Voltar");
+        BtVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtVoltarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 24;
@@ -367,7 +377,7 @@ public class FrameLocacao extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -383,121 +393,137 @@ public class FrameLocacao extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CbLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbLocacaoActionPerformed
-		if (evt.getSource() == this.CbLocacao && loaded && this.CbLocacao.getItemCount() != 0) {
-			String str = this.CbLocacao.getSelectedItem().toString();
-			ArrayList<String> locacao = ControladorLocacao.getInstance().getLocacao(str);
-			if (locacao != null) {
-				this.updateFields(locacao.get(1), locacao.get(0), locacao.get(2), locacao.get(3), locacao.get(4));
-				// update cbCliente
-				for (int i = 0; i < this.CbCliente.getItemCount(); i++) {
-					String cliente = this.CbCliente.getItemAt(i);
-					cliente = cliente.substring(0, cliente.indexOf("#"));
-					if (locacao.get(5).equals(cliente)) {
-						this.CbCliente.setSelectedIndex(i);
-						break;
-					}
-				}
-				// update cbAmbiente
-				for (int i = 0; i < this.CbAmbiente.getItemCount(); i++) {
-					if (locacao.get(6).equals((String) this.CbAmbiente.getItemAt(i))) {
-						this.CbAmbiente.setSelectedIndex(i);
-						break;
-					}
-				}
-				ControladorRecurso.getInstance().loadRecursoLocacao(locacao.get(5), locacao.get(6));
-				// update Recursos
-				updateLtAdicionado();
-			}
-
-		}
+        if (evt.getSource() == this.CbLocacao && loaded && this.CbLocacao.getItemCount() != 0) {
+            String str = this.CbLocacao.getSelectedItem().toString();
+            ArrayList<String> locacao = ControladorLocacao.getInstance().getLocacao(str);
+            if (locacao != null) {
+                this.updateFields(locacao.get(1), locacao.get(0), locacao.get(2), locacao.get(3), locacao.get(4));
+                // update cbCliente
+                for (int i = 0; i < this.CbCliente.getItemCount(); i++) {
+                    String cliente = this.CbCliente.getItemAt(i);
+                    cliente = cliente.substring(0, cliente.indexOf("#"));
+                    if (locacao.get(5).equals(cliente)) {
+                        this.CbCliente.setSelectedIndex(i);
+                        break;
+                    }
+                }
+                // update cbAmbiente
+                for (int i = 0; i < this.CbAmbiente.getItemCount(); i++) {
+                    if (locacao.get(6).equals((String) this.CbAmbiente.getItemAt(i))) {
+                        this.CbAmbiente.setSelectedIndex(i);
+                        break;
+                    }
+                }
+                ControladorRecurso.getInstance().loadRecursoLocacao(locacao.get(5), locacao.get(6));
+                // update Recursos
+                updateLtAdicionado();
+            }
+            
+        }
 
     }//GEN-LAST:event_CbLocacaoActionPerformed
 
     private void BtAdicionaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtAdicionaActionPerformed
 
-		String str = this.LtDisp.getSelectedValue();
-		if (str != null) {
-			ControladorRecurso.getInstance().addAdicionados(str);
-			updateLtAdicionado();
-		}
+        String str = this.LtDisp.getSelectedValue();
+        if (str != null) {
+            ControladorRecurso.getInstance().addAdicionados(str);
+            updateLtAdicionado();
+        }
 
     }//GEN-LAST:event_BtAdicionaActionPerformed
 
     private void BtRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtRemoveActionPerformed
-		// TODO add your handling code here:
-		String str = this.LtAdd.getSelectedValue();
-		if (str != null) {
-			ControladorRecurso.getInstance().addDisponiveis(str);
-			updateLtAdicionado();
-		}
+        // TODO add your handling code here:
+        String str = this.LtAdd.getSelectedValue();
+        if (str != null) {
+            ControladorRecurso.getInstance().addDisponiveis(str);
+            updateLtAdicionado();
+        }
     }//GEN-LAST:event_BtRemoveActionPerformed
 
     private void BtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSalvarActionPerformed
-		try {
-			// TODO add your handling code here:
-			String cliente = this.CbCliente.getSelectedItem().toString();
-			cliente = cliente.substring(0,cliente.indexOf("#"));
-			ControladorLocacao.getInstance().salvar(
-				this.TfDataFinal.getText(),
-				this.TfDataInicial.getText(),
-				this.TfQtdEstacoes.getText(),
-				this.TfFuncionario.getText(),
-				cliente,
-				this.CbAmbiente.getSelectedItem().toString());
-			
-			ControladorRecurso.getInstance().novaLocacao();
-			updateComboBox();
-			updateLtAdicionado();
-			clearFields();
-		} catch (ExceptionInput ex) {
-			JOptionPane.showMessageDialog(null, ex.getMessage());
-		}
+        try {
+            if (this.CbCliente.getSelectedItem() == null) {
+                throw new ExceptionInput("Nenhum cliente selecionado.");
+            }
+            String cliente = this.CbCliente.getSelectedItem().toString();
+            cliente = cliente.substring(0, cliente.indexOf("#"));
+            ControladorLocacao.getInstance().salvar(
+                this.TfDataFinal.getText(),
+                this.TfDataInicial.getText(),
+                this.TfQtdEstacoes.getText(),
+                this.TfFuncionario.getText(),
+                cliente,
+                this.CbAmbiente.getSelectedItem().toString());
+
+            ControladorRecurso.getInstance().novaLocacao();
+            updateComboBox();
+            updateLtAdicionado();
+            clearFields();
+        } catch (ExceptionInput ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }//GEN-LAST:event_BtSalvarActionPerformed
 
     private void CbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbClienteActionPerformed
-		// TODO add your handling code here:
-		if (evt.getSource() == this.CbLocacao && loaded) {
-			ControladorRecurso.getInstance().loadRecursoLocacao(
-				this.CbCliente.getSelectedItem().toString(),
-				this.CbAmbiente.getSelectedItem().toString());
-		}
-		updateLtAdicionado();
+
+        if (evt.getSource() == this.CbLocacao && loaded) {
+            ControladorRecurso.getInstance().loadRecursoLocacao(
+                this.CbCliente.getSelectedItem().toString(),
+                this.CbAmbiente.getSelectedItem().toString());
+        }
+        ControladorRecurso.getInstance().novaLocacao();
+        
+        updateLtAdicionado();
     }//GEN-LAST:event_CbClienteActionPerformed
 
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(FrameLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(FrameLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(FrameLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(FrameLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		//</editor-fold>
+    private void BtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarActionPerformed
+        ControladorLocacao.getInstance().exit();
+        this.dispose();
+    }//GEN-LAST:event_BtVoltarActionPerformed
 
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new FrameLocacao().setVisible(true);
-			}
-		});
-	}
+    private void CbAmbienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbAmbienteActionPerformed
+
+        ControladorRecurso.getInstance().novaLocacao();
+        updateLtAdicionado();
+    }//GEN-LAST:event_CbAmbienteActionPerformed
+
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrameLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrameLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrameLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrameLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrameLocacao().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtAdiciona;
@@ -531,72 +557,82 @@ public class FrameLocacao extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-	private void updateComboBox() {
-		updateCbCliente();
-		updateCbAmbiente();
-		updateCbLocacao();
-		clearFields();
-	}
+    private void updateComboBox() {
+        updateCbCliente();
+        updateCbAmbiente();
+        updateCbLocacao();
+        clearFields();
+    }
 
-	private void updateCbLocacao() {
-		this.CbLocacao.removeAllItems();
-		for (String locacao : ControladorLocacao.getInstance().getAllLocacoes()) {
-			this.CbLocacao.addItem(locacao);
-		}
-	}
+    private void updateCbLocacao() {
+        this.CbLocacao.removeAllItems();
+        for (String locacao : ControladorLocacao.getInstance().getAllLocacoes()) {
+            this.CbLocacao.addItem(locacao);
+        }
+    }
 
-	private void updateCbCliente() {
-		this.CbCliente.removeAllItems();
-		for (String cliente : ControladorCliente.getInstance().getAllClientes()) {
-			this.CbCliente.addItem(cliente);
-		}
-	}
+    private void updateCbCliente() {
+        this.CbCliente.removeAllItems();
+        for (String cliente : ControladorCliente.getInstance().getAllClientesLocacao()) {
+            this.CbCliente.addItem(cliente);
+        }
+    }
 
-	private void updateCbAmbiente() {
-		this.CbAmbiente.removeAllItems();
-		for (String Ambiente : ControladorAmbiente.getInstance().getAllAmbientes()) {
-			this.CbAmbiente.addItem(Ambiente);
-		}
-	}
+    private void updateCbAmbiente() {
+        this.CbAmbiente.removeAllItems();
+        for (String Ambiente : ControladorAmbiente.getInstance().getAllAmbientes()) {
+            this.CbAmbiente.addItem(Ambiente);
+        }
+    }
 
-	private void updateLtAdicionado() {
-		this.LtAdd.removeAll();
-		this.LtAdd.setListData(new String[0]);
-		if (!ControladorRecurso.getInstance().getAdicionados().isEmpty()) {
-			this.LtAdd.setListData(this.ArrayToArray(ControladorRecurso.getInstance().getAdicionados()));
-		}
-		updateLtDisponivel();
-	}
+    private void updateLtAdicionado() {
+        this.LtAdd.removeAll();
+        this.LtAdd.setListData(new String[0]);
+        if (!ControladorRecurso.getInstance().getAdicionados().isEmpty()) {
+            this.LtAdd.setListData(this.ArrayToArray(ControladorRecurso.getInstance().getAdicionados()));
+        }
+        updateCusto();
+        updateLtDisponivel();
+    }
 
-	private void updateLtDisponivel() {
-		this.LtDisp.removeAll();
-		this.LtDisp.setListData(new String[0]);
-		if (!ControladorRecurso.getInstance().getDisponiveis().isEmpty()) {
-			this.LtDisp.setListData(this.ArrayToArray(ControladorRecurso.getInstance().getDisponiveis()));
-		}
-	}
+    private void updateLtDisponivel() {
+        this.LtDisp.removeAll();
+        this.LtDisp.setListData(new String[0]);
+        if (!ControladorRecurso.getInstance().getDisponiveis().isEmpty()) {
+            this.LtDisp.setListData(this.ArrayToArray(ControladorRecurso.getInstance().getDisponiveis()));
+        }
+    }
 
-	private void updateFields(String dataInicial, String dataFinal, String qtdEstacoes, String custo, String funcionario) {
-		this.TfDataInicial.setText(dataInicial);
-		this.TfDataFinal.setText(dataFinal);
-		this.TfQtdEstacoes.setText(qtdEstacoes);
-		this.TfCusto.setText(custo);
-		if (funcionario != null) {
-			this.TfFuncionario.setText(funcionario);
-		} else {
-			this.TfFuncionario.setText(ControladorFuncionario.getInstance().getFuncionarioLogado());
-		}
-	}
+    private void updateFields(String dataInicial, String dataFinal, String qtdEstacoes, String custo, String funcionario) {
+        this.TfDataInicial.setText(dataInicial);
+        this.TfDataFinal.setText(dataFinal);
+        this.TfQtdEstacoes.setText(qtdEstacoes);
+        this.TfCusto.setText(custo);
+        if (funcionario != null) {
+            this.TfFuncionario.setText(funcionario);
+        } else {
+            this.TfFuncionario.setText(ControladorFuncionario.getInstance().getFuncionarioLogadoString());
+        }
+    }
 
-	private void clearFields() {
-		updateFields("", "", "", "", null);
-	}
+    private void clearFields() {
+        updateFields("", "", "", "", null);
+    }
 
-	private String[] ArrayToArray(ArrayList<String> array) {
-		String[] a = new String[array.size()];
-		for (int i = 0; i < array.size(); i++) {
-			a[i] = array.get(i);
-		}
-		return a;
-	}
+    private String[] ArrayToArray(ArrayList<String> array) {
+        String[] a = new String[array.size()];
+        for (int i = 0; i < array.size(); i++) {
+            a[i] = array.get(i);
+        }
+        return a;
+    }
+    
+    public void updateCusto() {
+        Double custo = 0.0;
+        if (this.CbAmbiente.getItemCount() > 0) {
+            custo += ControladorAmbiente.getInstance().getCusto(this.CbAmbiente.getSelectedItem().toString());
+        }
+        custo += ControladorRecurso.getInstance().custoRecursos();
+        this.TfCusto.setText(String.valueOf(custo));
+    }
 }

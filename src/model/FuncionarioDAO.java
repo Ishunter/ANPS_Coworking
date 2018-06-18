@@ -36,10 +36,10 @@ public class FuncionarioDAO {
         }
     }
 
-	public void create(String login, String nome, String senha){
-		this.create(new Funcionario(Integer.valueOf(login), nome, senha));
-	}
-	
+    public void create(String login, String nome, String senha) {
+        this.create(new Funcionario(Integer.valueOf(login), nome, senha));
+    }
+
     public Funcionario read(int login) {
         Connection conn = control.ConexaoBD.getConnection();
 
@@ -76,10 +76,10 @@ public class FuncionarioDAO {
         }
     }
 
-	public void update(String login, String nome, String senha) {
-		update(new Funcionario(Integer.valueOf(login), nome, senha));
-	}
-	
+    public void update(String login, String nome, String senha) {
+        update(new Funcionario(Integer.valueOf(login), nome, senha));
+    }
+
     public ArrayList<Funcionario> getAll() {
         Connection conn = control.ConexaoBD.getConnection();
         ArrayList<Funcionario> r = new ArrayList<>();
@@ -101,5 +101,3 @@ public class FuncionarioDAO {
         return r;
     }
 }
-
-// 48 98485 8193

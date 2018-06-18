@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class ClienteDAO {
+
     private static ClienteDAO instance = null;
 
     private ClienteDAO() {
@@ -39,6 +40,10 @@ public class ClienteDAO {
         }
     }
 
+    public void create(String atividade, String cpf, String endereco, int idade, String nome, String observacao) {
+        this.create(new Cliente(atividade, cpf, endereco, false, idade, nome, observacao));
+    }
+
     public Cliente read(String cpf) {
         Connection conn = control.ConexaoBD.getConnection();
 
@@ -55,7 +60,7 @@ public class ClienteDAO {
                 c.setIdade(rs.getInt("idade"));
                 c.setNome(rs.getString("nome"));
                 c.setObservacao(rs.getString("observacao"));
-				return c;
+                return c;
             }
         } catch (SQLException ex) {
             System.err.println("ClienteDAO.read() -> " + ex.getMessage());
@@ -82,11 +87,15 @@ public class ClienteDAO {
             JOptionPane.showMessageDialog(null, "Problema ao atualizar clientes no banco.");
         }
     }
+    
+    public void update(String atividade, String cpf, String endereco, boolean estaInadimplente, int idade, String nome, String observacao) {
+        this.update(new Cliente(atividade, cpf, endereco, estaInadimplente, idade, nome, observacao));
+    }
 
     public ArrayList<Cliente> getAll() {
         Connection conn = control.ConexaoBD.getConnection();
         ArrayList<Cliente> r = new ArrayList<>();
-            
+
         String sql = "SELECT * FROM public.cliente";
         try (PreparedStatement query = conn.prepareStatement(sql)) {
             ResultSet rs = query.executeQuery();

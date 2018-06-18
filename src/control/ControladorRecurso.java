@@ -104,4 +104,12 @@ public class ControladorRecurso {
 			}
 		}
 	}
+        
+        public double custoRecursos(){
+            double custo = 0;
+            for (Recurso r : recursosAdicionados){
+                custo += r.getCusto();
+            }
+            return custo;
+        }
 }

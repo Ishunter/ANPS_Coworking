@@ -9,15 +9,15 @@ import javax.swing.JOptionPane;
 
 public class FrameFuncionario extends javax.swing.JFrame {
 
-	private boolean loaded = false;
+    private boolean loaded = false;
 
-	public FrameFuncionario() {
-		initComponents();
-		updateComboBox();
-		loaded = true;
-	}
+    public FrameFuncionario() {
+        initComponents();
+        updateComboBox();
+        loaded = true;
+    }
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -182,6 +182,11 @@ public class FrameFuncionario extends javax.swing.JFrame {
 
         BtVoltar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         BtVoltar.setText("Voltar");
+        BtVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtVoltarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 12;
@@ -208,58 +213,63 @@ public class FrameFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CbFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbFuncionarioActionPerformed
-		if (evt.getSource() == this.CbFuncionario && loaded && this.CbFuncionario.getItemCount() != 0) {
-			String str = this.CbFuncionario.getSelectedItem().toString();
-			str = str.substring(0, str.indexOf("#"));
-			ArrayList<String> funcionario = ControladorFuncionario.getInstance().getFuncionario(str);
-			updateFields(funcionario.get(0), funcionario.get(1), funcionario.get(2));
-		}
+        if (evt.getSource() == this.CbFuncionario && loaded && this.CbFuncionario.getItemCount() != 0) {
+            String str = this.CbFuncionario.getSelectedItem().toString();
+            str = str.substring(0, str.indexOf("#"));
+            ArrayList<String> funcionario = ControladorFuncionario.getInstance().getFuncionarioView(str);
+            updateFields(funcionario.get(0), funcionario.get(1), funcionario.get(2));
+        }
     }//GEN-LAST:event_CbFuncionarioActionPerformed
 
     private void BtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSalvarActionPerformed
-		try {
-			ControladorFuncionario.getInstance().salvar(TfLogin.getText(),
-				TfNome.getText(),
-				String.valueOf(PfSenha1.getPassword()),
-				String.valueOf(PfSenha2.getPassword()));
-		} catch (ExceptionSalvoComSucesso ex) {
-			updateComboBox();
-		} catch (ExceptionInput ex) {
-			JOptionPane.showMessageDialog(null, ex.getMessage());
-		} catch (ExceptionCancelar ex) {
+        try {
+            ControladorFuncionario.getInstance().salvar(TfLogin.getText(),
+                TfNome.getText(),
+                String.valueOf(PfSenha1.getPassword()),
+                String.valueOf(PfSenha2.getPassword()));
+        } catch (ExceptionSalvoComSucesso ex) {
+            updateComboBox();
+        } catch (ExceptionInput ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } catch (ExceptionCancelar ex) {
 
-		}
+        }
     }//GEN-LAST:event_BtSalvarActionPerformed
 
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(FrameFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(FrameFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(FrameFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(FrameFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		//</editor-fold>
+    private void BtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarActionPerformed
+        ControladorFuncionario.getInstance().exit();
+        this.dispose();
+    }//GEN-LAST:event_BtVoltarActionPerformed
 
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(() -> {
-			new FrameFuncionario().setVisible(true);
-		});
-	}
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrameFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrameFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrameFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrameFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrameFuncionario().setVisible(true);
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtSalvar;
@@ -278,22 +288,22 @@ public class FrameFuncionario extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
-	private void updateComboBox() {
-		this.CbFuncionario.removeAllItems();
-		for (String funcionario : ControladorFuncionario.getInstance().getAllFuncionarios()) {
-			this.CbFuncionario.addItem(funcionario);
-		}
-		clearFields();
-	}
+    private void updateComboBox() {
+        this.CbFuncionario.removeAllItems();
+        for (String funcionario : ControladorFuncionario.getInstance().getAllFuncionarios()) {
+            this.CbFuncionario.addItem(funcionario);
+        }
+        clearFields();
+    }
 
-	private void updateFields(String login, String nome, String senha) {
-		this.TfLogin.setText(login);
-		this.TfNome.setText(nome);
-		this.PfSenha1.setText(senha);
-		this.PfSenha2.setText(senha);
-	}
+    private void updateFields(String login, String nome, String senha) {
+        this.TfLogin.setText(login);
+        this.TfNome.setText(nome);
+        this.PfSenha1.setText(senha);
+        this.PfSenha2.setText(senha);
+    }
 
-	private void clearFields() {
-		updateFields("", "", "");
-	}
+    private void clearFields() {
+        updateFields("", "", "");
+    }
 }
