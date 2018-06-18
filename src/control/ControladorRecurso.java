@@ -3,12 +3,14 @@ package control;
 import java.util.ArrayList;
 import model.Recurso;
 import model.RecursoDAO;
+import view.FrameMenu;
 
 public class ControladorRecurso {
 
 	private static ControladorRecurso instance = null;
 	private ArrayList<Recurso> recursosAdicionados = new ArrayList<>();
 	private ArrayList<Recurso> recursosDisponiveis = new ArrayList<>();
+	private FrameMenu view;
 
 	private ControladorRecurso() {
 	}
@@ -104,12 +106,21 @@ public class ControladorRecurso {
 			}
 		}
 	}
-        
-        public double custoRecursos(){
-            double custo = 0;
-            for (Recurso r : recursosAdicionados){
-                custo += r.getCusto();
-            }
-            return custo;
-        }
+
+	public double custoRecursos() {
+		double custo = 0;
+		for (Recurso r : recursosAdicionados) {
+			custo += r.getCusto();
+		}
+		return custo;
+	}
+
+	public void setView(FrameMenu view) {
+		this.view = view;
+		this.view.setVisible(false);
+	}
+
+	public void exit() {
+		this.view.setVisible(true);
+	}
 }

@@ -36,6 +36,10 @@ public class AmbienteDAO {
             JOptionPane.showMessageDialog(null, "Problema ao inserir ambiente no banco.");
         }
     }
+	
+	public void create( String nome, String custo, String qtdestacoestrabalho, String descricao){
+		create(new Ambiente(Double.valueOf(custo), descricao, nome, Integer.valueOf(qtdestacoestrabalho)));
+	}
 
     public Ambiente read(String nome) {
         Connection conn = control.ConexaoBD.getConnection();
@@ -75,6 +79,10 @@ public class AmbienteDAO {
         }
     }
 
+	public void update( String nome, String custo, String qtdestacoestrabalho, String descricao){
+		update(new Ambiente(Double.valueOf(custo), descricao, nome, Integer.valueOf(qtdestacoestrabalho)));
+	}
+	
     public ArrayList<Ambiente> getAll() {
         Connection conn = control.ConexaoBD.getConnection();
         ArrayList<Ambiente> r = new ArrayList<>();

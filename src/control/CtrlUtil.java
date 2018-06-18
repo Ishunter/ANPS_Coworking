@@ -1,5 +1,6 @@
 package control;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class CtrlUtil {
@@ -28,4 +29,12 @@ public class CtrlUtil {
 			options[0]);
 		return answer == 0;
 	}
+	
+	public static String[] ArrayToArray(ArrayList<String> array) {
+        String[] a = new String[array.size()];
+        for (int i = 0; i < array.size(); i++) {
+            a[i] = array.get(i);
+        }
+        return a;
+    }
 }

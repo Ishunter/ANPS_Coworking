@@ -48,10 +48,7 @@ public class FrameCliente extends javax.swing.JFrame {
         setTitle("Cadastrar e manter clientes");
         setMaximumSize(null);
 
-        jPanel1.setMaximumSize(null);
-        jPanel1.setMinimumSize(null);
         jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(null);
         java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
         jPanel1Layout.columnWidths = new int[] {0, 8, 0, 8, 0, 8, 0, 8, 0};
         jPanel1Layout.rowHeights = new int[] {0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0};

@@ -5,6 +5,7 @@ import control.ControladorCliente;
 import control.ControladorFuncionario;
 import control.ControladorLocacao;
 import control.ControladorRecurso;
+import control.CtrlUtil;
 import control.exceptions.ExceptionInput;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -377,7 +378,7 @@ public class FrameLocacao extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -589,7 +590,7 @@ public class FrameLocacao extends javax.swing.JFrame {
         this.LtAdd.removeAll();
         this.LtAdd.setListData(new String[0]);
         if (!ControladorRecurso.getInstance().getAdicionados().isEmpty()) {
-            this.LtAdd.setListData(this.ArrayToArray(ControladorRecurso.getInstance().getAdicionados()));
+            this.LtAdd.setListData(CtrlUtil.ArrayToArray(ControladorRecurso.getInstance().getAdicionados()));
         }
         updateCusto();
         updateLtDisponivel();
@@ -599,7 +600,7 @@ public class FrameLocacao extends javax.swing.JFrame {
         this.LtDisp.removeAll();
         this.LtDisp.setListData(new String[0]);
         if (!ControladorRecurso.getInstance().getDisponiveis().isEmpty()) {
-            this.LtDisp.setListData(this.ArrayToArray(ControladorRecurso.getInstance().getDisponiveis()));
+            this.LtDisp.setListData(CtrlUtil.ArrayToArray(ControladorRecurso.getInstance().getDisponiveis()));
         }
     }
 
@@ -618,15 +619,7 @@ public class FrameLocacao extends javax.swing.JFrame {
     private void clearFields() {
         updateFields("", "", "", "", null);
     }
-
-    private String[] ArrayToArray(ArrayList<String> array) {
-        String[] a = new String[array.size()];
-        for (int i = 0; i < array.size(); i++) {
-            a[i] = array.get(i);
-        }
-        return a;
-    }
-    
+	
     public void updateCusto() {
         Double custo = 0.0;
         if (this.CbAmbiente.getItemCount() > 0) {

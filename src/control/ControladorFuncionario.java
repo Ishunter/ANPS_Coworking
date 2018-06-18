@@ -13,7 +13,6 @@ import view.FrameMenu;
 public class ControladorFuncionario {
 
     private Funcionario funcionarioLogado = null;
-
     private static ControladorFuncionario instance = null;
     private FrameMenu view;
 

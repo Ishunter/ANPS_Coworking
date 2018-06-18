@@ -1,26 +1,27 @@
 package view;
 
+import control.ControladorAmbiente;
 import control.ControladorCliente;
 import control.ControladorFuncionario;
 import control.ControladorLocacao;
 import control.ControladorLogin;
+import control.ControladorRecurso;
 
 public class FrameMenu extends javax.swing.JFrame {
 
-    public FrameMenu() {
-        initComponents();
-        this.LbFuncionario.setText(ControladorFuncionario.getInstance().funcionarioLogadoNome());
-        this.LbTipoFuncionario.setText(ControladorFuncionario.getInstance().funcionarioLogadoTipo());
-        
-        if (ControladorFuncionario.getInstance().funcionarioLogadoTipo().equals("Funcionario")){
-            this.BtAmbiente.setEnabled(false);
-            this.BtFuncionario.setEnabled(false);
-            this.BtRecurso.setEnabled(false);
-        }
-        
-    }
+	public FrameMenu() {
+		initComponents();
+		this.LbFuncionario.setText(ControladorFuncionario.getInstance().funcionarioLogadoNome());
+		this.LbTipoFuncionario.setText(ControladorFuncionario.getInstance().funcionarioLogadoTipo());
 
-    @SuppressWarnings("unchecked")
+		if (ControladorFuncionario.getInstance().funcionarioLogadoTipo().equals("Funcionario")) {
+			this.BtAmbiente.setEnabled(false);
+			this.BtFuncionario.setEnabled(false);
+			this.BtRecurso.setEnabled(false);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -62,6 +63,11 @@ public class FrameMenu extends javax.swing.JFrame {
         jPanel1.add(LbCoworking, gridBagConstraints);
 
         BtAmbiente.setText("Cadastrar e Manter Ambientes");
+        BtAmbiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtAmbienteActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -125,6 +131,11 @@ public class FrameMenu extends javax.swing.JFrame {
         jPanel1.add(BtLocacao, gridBagConstraints);
 
         BtRecurso.setText("Cadastrar e Manter Recursos");
+        BtRecurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtRecursoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 14;
@@ -137,6 +148,11 @@ public class FrameMenu extends javax.swing.JFrame {
         jPanel1.add(BtRecurso, gridBagConstraints);
 
         BtInadinplente.setText("Bloquear/Desbloquear Cliente Inadimplente");
+        BtInadinplente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtInadinplenteActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -189,11 +205,11 @@ public class FrameMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
         );
 
         pack();
@@ -201,57 +217,71 @@ public class FrameMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtDeslogarActionPerformed
-        
-        ControladorLogin.getInstance().deslogar();
-        this.dispose();
+		ControladorLogin.getInstance().deslogar();
+		this.dispose();
     }//GEN-LAST:event_BtDeslogarActionPerformed
 
     private void BtFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtFuncionarioActionPerformed
-        ControladorFuncionario.getInstance().setView(this);
-        new FrameFuncionario().setVisible(true);
+		ControladorFuncionario.getInstance().setView(this);
+		new FrameFuncionario().setVisible(true);
     }//GEN-LAST:event_BtFuncionarioActionPerformed
 
     private void BtLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtLocacaoActionPerformed
-        ControladorLocacao.getInstance().setView(this);
-        new FrameLocacao().setVisible(true);
+		ControladorLocacao.getInstance().setView(this);
+		new FrameLocacao().setVisible(true);
     }//GEN-LAST:event_BtLocacaoActionPerformed
 
     private void BtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtClienteActionPerformed
-        ControladorCliente.getInstance().setView(this);
-        new FrameCliente().setVisible(true);
+		ControladorCliente.getInstance().setView(this);
+		new FrameCliente().setVisible(true);
     }//GEN-LAST:event_BtClienteActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void BtInadinplenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtInadinplenteActionPerformed
+		ControladorCliente.getInstance().setView(this);
+		new FrameInadimplencia().setVisible(true);
+    }//GEN-LAST:event_BtInadinplenteActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrameMenu().setVisible(true);
-            }
-        });
-    }
+    private void BtAmbienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtAmbienteActionPerformed
+		ControladorAmbiente.getInstance().setView(this);
+		new FrameAmbiente().setVisible(true);
+    }//GEN-LAST:event_BtAmbienteActionPerformed
+
+    private void BtRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtRecursoActionPerformed
+		ControladorRecurso.getInstance().setView(this);
+		//new FrameRecurso().setVisible(true);
+    }//GEN-LAST:event_BtRecursoActionPerformed
+
+	public static void main(String args[]) {
+		/* Set the Nimbus look and feel */
+		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+		 */
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		}
+		//</editor-fold>
+
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new FrameMenu().setVisible(true);
+			}
+		});
+	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtAmbiente;
