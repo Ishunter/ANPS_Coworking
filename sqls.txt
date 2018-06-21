@@ -1,4 +1,4 @@
-CREATE USER coworking WITH
+RCEATE USER coworking WITH
 	LOGIN
 	SUPERUSER
 	CREATEDB
@@ -15,6 +15,7 @@ CREATE DATABASE coworking
     CONNECTION LIMIT = -1;
 
 
+DROP TABLE IF EXISTS public.funcionario CASCADE;
 CREATE TABLE public.funcionario
 (
     login integer NOT NULL,
@@ -29,6 +30,7 @@ WITH (
 ALTER TABLE public.funcionario
     OWNER to coworking;
 
+DROP TABLE IF EXISTS public.gerente CASCADE;
 CREATE TABLE public.gerente
 (
     login integer,
@@ -44,6 +46,7 @@ WITH (
 ALTER TABLE public.gerente
     OWNER to coworking;
 
+DROP TABLE IF EXISTS public.ambiente CASCADE;
 CREATE TABLE public.ambiente
 (
     custo double precision NOT NULL,
@@ -59,6 +62,7 @@ WITH (
 ALTER TABLE public.ambiente
     OWNER to coworking;
 
+DROP TABLE IF EXISTS public.cliente CASCADE;
 CREATE TABLE public.cliente
 (
     atividade character varying,
@@ -78,6 +82,7 @@ ALTER TABLE public.cliente
     OWNER to coworking;
 
 
+DROP TABLE IF EXISTS public.recurso CASCADE;
 CREATE TABLE public.recurso
 (
     custo double precision,
@@ -92,6 +97,7 @@ WITH (
 ALTER TABLE public.recurso
     OWNER to coworking;
 
+DROP TABLE IF EXISTS public.locacao CASCADE;
 CREATE TABLE public.locacao
 (
     datafinal character varying NOT NULL,
@@ -120,6 +126,7 @@ CREATE TABLE public.locacao
 ALTER TABLE public.locacao
     OWNER to coworking;
 
+DROP TABLE IF EXISTS public.rl_recursos CASCADE;
 CREATE TABLE public.rl_recursos
 (
   cliente character varying NOT NULL,

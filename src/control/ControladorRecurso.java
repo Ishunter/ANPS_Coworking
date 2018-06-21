@@ -123,7 +123,6 @@ public class ControladorRecurso {
         for (Recurso r : loadRecursos()) {
             String id = r.getNome().substring(r.getNome().indexOf("#")+1, r.getNome().length());
             itens.add(Integer.valueOf(id));
-            System.out.println(id);
         }
         Collections.sort(itens);
 
