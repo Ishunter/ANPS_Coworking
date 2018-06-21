@@ -35,6 +35,10 @@ public class RecursoDAO {
             JOptionPane.showMessageDialog(null, "Problema ao inserir recurso no banco.");
         }
     }
+    
+    public void create(String custo, String descricao, String nome){
+        this.create(new Recurso(Double.valueOf(custo), descricao, nome));
+    }
 
     public Recurso read(String nome) {
         Connection conn = control.ConexaoBD.getConnection();
@@ -83,6 +87,10 @@ public class RecursoDAO {
             System.err.println("RecursoDAO.delete() -> " + ex.getMessage());
             JOptionPane.showMessageDialog(null, "Problema ao deletar recurso no banco.");
         }
+    }
+    
+    public void delete(String nome){
+        this.delete(this.read(nome));
     }
 
     public ArrayList<Recurso> getAll() {

@@ -1,6 +1,6 @@
 package view;
 
-import control.ControladorAmbiente;
+import control.ControladorRecurso;
 import control.exceptions.ExceptionCancelar;
 import control.exceptions.ExceptionExcluidoComSucesso;
 import control.exceptions.ExceptionInput;
@@ -8,11 +8,11 @@ import control.exceptions.ExceptionSalvoComSucesso;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class FrameAmbiente extends javax.swing.JFrame {
+public class FrameRecurso extends javax.swing.JFrame {
 
     private boolean loaded = false;
 
-    public FrameAmbiente() {
+    public FrameRecurso() {
         initComponents();
         updateComboBox();
         loaded = true;
@@ -24,20 +24,18 @@ public class FrameAmbiente extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        LbAmbiente = new javax.swing.JLabel();
-        CbAmbiente = new javax.swing.JComboBox<>();
+        LbRecurso = new javax.swing.JLabel();
+        CbRecurso = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         LbNome = new javax.swing.JLabel();
         TfNome = new javax.swing.JTextField();
         LbCusto = new javax.swing.JLabel();
         TfCusto = new javax.swing.JTextField();
-        LbQtd = new javax.swing.JLabel();
         LbDescricao = new javax.swing.JLabel();
         BtSalvar = new javax.swing.JButton();
         BtVoltar = new javax.swing.JButton();
-        TfQtd = new javax.swing.JTextField();
         TfDescricao = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        BtExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar e editar funcionarios");
@@ -46,10 +44,10 @@ public class FrameAmbiente extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        LbAmbiente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        LbAmbiente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LbAmbiente.setText("Ambiente");
-        LbAmbiente.setToolTipText("");
+        LbRecurso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        LbRecurso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LbRecurso.setText("Recurso");
+        LbRecurso.setToolTipText("");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -57,11 +55,11 @@ public class FrameAmbiente extends javax.swing.JFrame {
         gridBagConstraints.ipady = 2;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        jPanel1.add(LbAmbiente, gridBagConstraints);
+        jPanel1.add(LbRecurso, gridBagConstraints);
 
-        CbAmbiente.addActionListener(new java.awt.event.ActionListener() {
+        CbRecurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CbAmbienteActionPerformed(evt);
+                CbRecursoActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -73,7 +71,7 @@ public class FrameAmbiente extends javax.swing.JFrame {
         gridBagConstraints.ipady = 2;
         gridBagConstraints.weightx = 2.0;
         gridBagConstraints.weighty = 1.0;
-        jPanel1.add(CbAmbiente, gridBagConstraints);
+        jPanel1.add(CbRecurso, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -127,22 +125,11 @@ public class FrameAmbiente extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         jPanel1.add(TfCusto, gridBagConstraints);
 
-        LbQtd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        LbQtd.setText("Quantidade de Estações");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.ipadx = 2;
-        gridBagConstraints.ipady = 2;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        jPanel1.add(LbQtd, gridBagConstraints);
-
         LbDescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LbDescricao.setText("Descrição");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.ipadx = 2;
         gridBagConstraints.ipady = 2;
         gridBagConstraints.weightx = 1.0;
@@ -158,7 +145,7 @@ public class FrameAmbiente extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 2;
         gridBagConstraints.ipady = 2;
@@ -175,7 +162,7 @@ public class FrameAmbiente extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 2;
         gridBagConstraints.ipady = 2;
@@ -186,71 +173,61 @@ public class FrameAmbiente extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 2;
         gridBagConstraints.ipady = 2;
         gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
-        jPanel1.add(TfQtd, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 2;
-        gridBagConstraints.ipady = 2;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.weighty = 2.0;
         jPanel1.add(TfDescricao, gridBagConstraints);
 
-        jButton1.setText("Excluir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtExcluir.setText("Excluir");
+        BtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtExcluirActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 2;
         gridBagConstraints.ipady = 2;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        jPanel1.add(jButton1, gridBagConstraints);
+        jPanel1.add(BtExcluir, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CbAmbienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbAmbienteActionPerformed
-        if (evt.getSource() == this.CbAmbiente && loaded && this.CbAmbiente.getItemCount() != 0) {
-            ArrayList<String> ambiente = ControladorAmbiente.getInstance().getAmbienteView(this.CbAmbiente.getSelectedItem().toString());
-            updateFields(ambiente.get(0), ambiente.get(1), ambiente.get(2), ambiente.get(3));
+    private void CbRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbRecursoActionPerformed
+        if (evt.getSource() == this.CbRecurso && loaded && this.CbRecurso.getItemCount() != 0) {
+            ArrayList<String> recurso = ControladorRecurso.getInstance().getRecursoView(this.CbRecurso.getSelectedItem().toString());
+            updateFields(recurso.get(0), recurso.get(1), recurso.get(2));
         }
-    }//GEN-LAST:event_CbAmbienteActionPerformed
+    }//GEN-LAST:event_CbRecursoActionPerformed
 
     private void BtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSalvarActionPerformed
         try {
-            ControladorAmbiente.getInstance().salvar(
+            ControladorRecurso.getInstance().salvar(
                 this.TfNome.getText(),
                 this.TfCusto.getText(),
-                this.TfQtd.getText(),
                 this.TfDescricao.getText());
         } catch (ExceptionSalvoComSucesso ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
             updateComboBox();
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (ExceptionInput ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (ExceptionCancelar ex) {
@@ -259,23 +236,20 @@ public class FrameAmbiente extends javax.swing.JFrame {
     }//GEN-LAST:event_BtSalvarActionPerformed
 
     private void BtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarActionPerformed
-        ControladorAmbiente.getInstance().exit();
+        ControladorRecurso.getInstance().exit();
         this.dispose();
     }//GEN-LAST:event_BtVoltarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtExcluirActionPerformed
         try {
-            ControladorAmbiente.getInstance().excluir(this.CbAmbiente.getSelectedItem().toString());
-            updateComboBox();
+            ControladorRecurso.getInstance().excluir(this.CbRecurso.getSelectedItem().toString());
         } catch (ExceptionExcluidoComSucesso ex) {
-            updateComboBox();
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (ExceptionCancelar ex) {
-
-        } catch (Exception ex) {
+        } catch (ExceptionInput ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        updateComboBox();
+    }//GEN-LAST:event_BtExcluirActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -291,57 +265,56 @@ public class FrameAmbiente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameAmbiente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRecurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameAmbiente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRecurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameAmbiente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRecurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameAmbiente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameRecurso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new FrameAmbiente().setVisible(true);
+            new FrameRecurso().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtExcluir;
     private javax.swing.JButton BtSalvar;
     private javax.swing.JButton BtVoltar;
-    private javax.swing.JComboBox<String> CbAmbiente;
-    private javax.swing.JLabel LbAmbiente;
+    private javax.swing.JComboBox<String> CbRecurso;
     private javax.swing.JLabel LbCusto;
     private javax.swing.JLabel LbDescricao;
     private javax.swing.JLabel LbNome;
-    private javax.swing.JLabel LbQtd;
+    private javax.swing.JLabel LbRecurso;
     private javax.swing.JTextField TfCusto;
     private javax.swing.JTextField TfDescricao;
     private javax.swing.JTextField TfNome;
-    private javax.swing.JTextField TfQtd;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
     private void updateComboBox() {
-        this.CbAmbiente.removeAllItems();
-        for (String funcionario : ControladorAmbiente.getInstance().getAllAmbientes()) {
-            this.CbAmbiente.addItem(funcionario);
+        this.CbRecurso.removeAllItems();
+        for (String r : ControladorRecurso.getInstance().loadRecursosView()) {
+            this.CbRecurso.addItem(r);
         }
         clearFields();
     }
 
-    private void updateFields(String nome, String custo, String qtd, String descricao) {
+    private void updateFields(String custo, String descricao, String nome) {
         this.TfNome.setText(nome);
         this.TfCusto.setText(custo);
-        this.TfQtd.setText(qtd);
         this.TfDescricao.setText(descricao);
     }
 
     private void clearFields() {
-        updateFields("", "", "", "");
+        updateFields("", "", "");
     }
 }

@@ -6,7 +6,9 @@ import control.ControladorFuncionario;
 import control.ControladorLocacao;
 import control.ControladorRecurso;
 import control.CtrlUtil;
+import control.exceptions.ExceptionCancelar;
 import control.exceptions.ExceptionInput;
+import control.exceptions.ExceptionSalvoComSucesso;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -378,7 +380,7 @@ public class FrameLocacao extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -423,7 +425,7 @@ public class FrameLocacao extends javax.swing.JFrame {
                 // update Recursos
                 updateLtAdicionado();
             }
-            
+
         }
 
     }//GEN-LAST:event_CbLocacaoActionPerformed
@@ -468,6 +470,11 @@ public class FrameLocacao extends javax.swing.JFrame {
             clearFields();
         } catch (ExceptionInput ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+        } catch (ExceptionCancelar ex) {
+
+        } catch (ExceptionSalvoComSucesso ex) {
+            updateComboBox();
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_BtSalvarActionPerformed
 
@@ -479,7 +486,7 @@ public class FrameLocacao extends javax.swing.JFrame {
                 this.CbAmbiente.getSelectedItem().toString());
         }
         ControladorRecurso.getInstance().novaLocacao();
-        
+
         updateLtAdicionado();
     }//GEN-LAST:event_CbClienteActionPerformed
 
@@ -619,7 +626,7 @@ public class FrameLocacao extends javax.swing.JFrame {
     private void clearFields() {
         updateFields("", "", "", "", null);
     }
-	
+
     public void updateCusto() {
         Double custo = 0.0;
         if (this.CbAmbiente.getItemCount() > 0) {

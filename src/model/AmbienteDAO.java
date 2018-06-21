@@ -36,10 +36,10 @@ public class AmbienteDAO {
             JOptionPane.showMessageDialog(null, "Problema ao inserir ambiente no banco.");
         }
     }
-	
-	public void create( String nome, String custo, String qtdestacoestrabalho, String descricao){
-		create(new Ambiente(Double.valueOf(custo), descricao, nome, Integer.valueOf(qtdestacoestrabalho)));
-	}
+
+    public void create(String nome, String custo, String qtdestacoestrabalho, String descricao) {
+        create(new Ambiente(Double.valueOf(custo), descricao, nome, Integer.valueOf(qtdestacoestrabalho)));
+    }
 
     public Ambiente read(String nome) {
         Connection conn = control.ConexaoBD.getConnection();
@@ -79,14 +79,14 @@ public class AmbienteDAO {
         }
     }
 
-	public void update( String nome, String custo, String qtdestacoestrabalho, String descricao){
-		update(new Ambiente(Double.valueOf(custo), descricao, nome, Integer.valueOf(qtdestacoestrabalho)));
-	}
-	
+    public void update(String nome, String custo, String qtdestacoestrabalho, String descricao) {
+        update(new Ambiente(Double.valueOf(custo), descricao, nome, Integer.valueOf(qtdestacoestrabalho)));
+    }
+
     public ArrayList<Ambiente> getAll() {
         Connection conn = control.ConexaoBD.getConnection();
         ArrayList<Ambiente> r = new ArrayList<>();
-            
+
         String sql = "SELECT * FROM public.ambiente";
         try (PreparedStatement query = conn.prepareStatement(sql)) {
             ResultSet rs = query.executeQuery();
@@ -105,16 +105,18 @@ public class AmbienteDAO {
         return r;
     }
 
-    public void delete(Ambiente ambiente) {
+    public boolean delete(Ambiente ambiente) {
         Connection conn = control.ConexaoBD.getConnection();
 
         String sql = "DELETE FROM public.ambiente WHERE nome like ?";
         try (PreparedStatement query = conn.prepareStatement(sql)) {
             query.setString(1, ambiente.getNome());
             query.execute();
+            return true;
         } catch (SQLException ex) {
-            System.err.println("AmbienteDAO.delete() -> " + ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Problema ao deletar ambiente do banco.");
+            return false;
+            //System.err.println("AmbienteDAO.delete() -> " + ex.getMessage());
+            //JOptionPane.showMessageDialog(null, "Problema ao deletar ambiente do banco.");
         }
     }
 

@@ -339,11 +339,12 @@ public class FrameCliente extends javax.swing.JFrame {
                 this.TfCpf.getText(),
                 this.TfEndereco.getText(),
                 false,
-                Integer.valueOf(this.TfIdade.getText()),
+                this.TfIdade.getText(),
                 this.TfNome.getText(),
                 this.TfObservação.getText());
         } catch (ExceptionSalvoComSucesso ex) {
             updateComboBox();
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (ExceptionInput ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (ExceptionCancelar ex) {

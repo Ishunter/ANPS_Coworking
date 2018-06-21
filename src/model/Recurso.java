@@ -1,47 +1,48 @@
 package model;
 
 public class Recurso {
-	private double custo;
-	private String descricao;
-	private String nome;
 
-	public Recurso() {
-	}
+    private double custo;
+    private String descricao;
+    private String nome;
 
-	public Recurso(double custo, String descricao, String nome) {
-		this.custo = custo;
-		this.descricao = descricao;
-		this.nome = nome;
-	}
+    public Recurso() {
+    }
 
-	public double getCusto() {
-		return custo;
-	}
+    public Recurso(double custo, String descricao, String nome) {
+        this.custo = custo;
+        this.descricao = descricao;
+        this.nome = nome;
+    }
 
-	public void setCusto(double custo) {
-		this.custo = custo;
-	}
+    public double getCusto() {
+        return custo;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public void setCusto(double custo) {
+        this.custo = custo;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	public void print(){
-		System.out.println("--- Recurso ---");
-		System.out.println("custo: "+this.custo);
-		System.out.println("descricao: "+this.descricao);
-		System.out.println("nome: "+this.nome);
-	}
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void print() {
+        System.out.println("--- Recurso ---");
+        System.out.println("custo: " + this.custo);
+        System.out.println("descricao: " + this.descricao);
+        System.out.println("nome: " + this.nome);
+    }
 }

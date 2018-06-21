@@ -1,6 +1,8 @@
 package control;
 
+import control.exceptions.ExceptionCancelar;
 import control.exceptions.ExceptionInput;
+import control.exceptions.ExceptionSalvoComSucesso;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Locacao;
@@ -47,7 +49,7 @@ public class ControladorLocacao {
         return array;
     }
 
-    public void salvar(String dataFinal, String dataInicial, String qtdEstacoesLocadas, String funcionario, String cliente, String ambiente) throws ExceptionInput {
+    public void salvar(String dataFinal, String dataInicial, String qtdEstacoesLocadas, String funcionario, String cliente, String ambiente) throws ExceptionInput, ExceptionCancelar, ExceptionSalvoComSucesso {
         // Check empty
         if (dataFinal.isEmpty() || dataInicial.isEmpty() || qtdEstacoesLocadas.isEmpty()) {
             throw new ExceptionInput("Por favor preencher campos.");
@@ -69,7 +71,7 @@ public class ControladorLocacao {
             throw new ExceptionInput("Data Final deve ser posterior ou igual a Data Inicial.");
         }
         // Check estacoes
-        if (Integer.valueOf(qtdEstacoesLocadas) <= 0){
+        if (Integer.valueOf(qtdEstacoesLocadas) <= 0) {
             throw new ExceptionInput("Quantidade de estações tem que ser maior que 0.");
         }
         if (ControladorAmbiente.getInstance().getAmb(ambiente).getQtdEstacoesTrabalho()
@@ -90,15 +92,24 @@ public class ControladorLocacao {
                 l.setRecurso(ControladorRecurso.getInstance().salvarRlRecursos());
                 LocacaoDAO.getInstance().create(l);
             } else {
-                Locacao l = LocacaoDAO.getInstance().read(cliente, ambiente);
-                l.setDataFinal(dataFinal);
-                l.setDataInicial(dataInicial);
-                 l.setQtdEstacoesLocadas(Integer.valueOf(qtdEstacoesLocadas));
-                l.setFuncionario(ControladorFuncionario.getInstance().getFuncionarioLogado());
-                l.setCliente(ControladorCliente.getInstance().getCli(cliente));
-                l.setAmbiente(ControladorAmbiente.getInstance().getAmb(ambiente));
-                l.setRecurso(ControladorRecurso.getInstance().salvarRlRecursos());
-                LocacaoDAO.getInstance().update(l);
+                boolean atualizarDados = CtrlUtil.getInstance().PanelYesOrNo(
+                    "Já existe uma Locacao com este Ambiente para este Cliente.\nDeseja atualizar os dados?",
+                    "Deseja atualizar os dados?");
+                if (atualizarDados) {
+                    Locacao l = LocacaoDAO.getInstance().read(cliente, ambiente);
+                    l.setDataFinal(dataFinal);
+                    l.setDataInicial(dataInicial);
+                    l.setQtdEstacoesLocadas(Integer.valueOf(qtdEstacoesLocadas));
+                    l.setFuncionario(ControladorFuncionario.getInstance().getFuncionarioLogado());
+                    l.setCliente(ControladorCliente.getInstance().getCli(cliente));
+                    l.setAmbiente(ControladorAmbiente.getInstance().getAmb(ambiente));
+                    l.setRecurso(ControladorRecurso.getInstance().salvarRlRecursos());
+                    LocacaoDAO.getInstance().update(l);
+                    throw new ExceptionSalvoComSucesso("Locacao");
+                } else {
+                    throw new ExceptionCancelar();
+                }
+
             }
         }
 
@@ -128,5 +139,9 @@ public class ControladorLocacao {
             }
         }
         return qtd;
+    }
+
+    public boolean estaLocado(String recurso) {
+        return LocacaoDAO.getInstance().RlRecursosEstaLocado(recurso);
     }
 }

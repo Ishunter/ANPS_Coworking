@@ -2,18 +2,22 @@ package view;
 
 import control.ControladorCliente;
 import control.CtrlUtil;
+import control.exceptions.ExceptionSalvoComSucesso;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class FrameInadimplencia extends javax.swing.JFrame {
 
-	private boolean loaded = false;
+    private boolean loaded = false;
 
-	public FrameInadimplencia() {
-		initComponents();
-		update();
-		loaded = true;
-	}
+    public FrameInadimplencia() {
+        initComponents();
+        update();
+        loaded = true;
+    }
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -217,62 +221,66 @@ public class FrameInadimplencia extends javax.swing.JFrame {
     }//GEN-LAST:event_BtConsultarActionPerformed
 
     private void BtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtAddActionPerformed
-		String str = this.LtAdimplentes.getSelectedValue();
-		if (str != null) {
-			ControladorCliente.getInstance().addInadimplente(str);
-			updateAdimplente();
-		}
+        String str = this.LtAdimplentes.getSelectedValue();
+        if (str != null) {
+            ControladorCliente.getInstance().addInadimplente(str);
+            updateAdimplente();
+        }
     }//GEN-LAST:event_BtAddActionPerformed
 
     private void BtRemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtRemActionPerformed
-		String str = this.LtInadimplente.getSelectedValue();
-		if (str != null) {
-			ControladorCliente.getInstance().addAdimplente(str);
-			updateAdimplente();
-		}
+        String str = this.LtInadimplente.getSelectedValue();
+        if (str != null) {
+            ControladorCliente.getInstance().addAdimplente(str);
+            updateAdimplente();
+        }
     }//GEN-LAST:event_BtRemActionPerformed
 
     private void BtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSalvarActionPerformed
-		ControladorCliente.getInstance().salvarInadimplencia();
-		update();
+        try {
+            ControladorCliente.getInstance().salvarInadimplencia();
+        } catch (ExceptionSalvoComSucesso ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        update();
     }//GEN-LAST:event_BtSalvarActionPerformed
 
     private void BtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtVoltarActionPerformed
-		ControladorCliente.getInstance().exit();
-		this.dispose();
+        ControladorCliente.getInstance().exit();
+        this.dispose();
     }//GEN-LAST:event_BtVoltarActionPerformed
 
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(FrameInadimplencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(FrameInadimplencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(FrameInadimplencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(FrameInadimplencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		//</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrameInadimplencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrameInadimplencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrameInadimplencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrameInadimplencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new FrameInadimplencia().setVisible(true);
-			}
-		});
-	}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrameInadimplencia().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtAdd;
@@ -291,25 +299,25 @@ public class FrameInadimplencia extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 
-	private void update() {
-		ControladorCliente.getInstance().loadInadimplente();
-		updateAdimplente();
-	}
+    private void update() {
+        ControladorCliente.getInstance().loadInadimplente();
+        updateAdimplente();
+    }
 
-	private void updateAdimplente() {
-		this.LtAdimplentes.removeAll();
-		this.LtAdimplentes.setListData(new String[0]);
-		if (!ControladorCliente.getInstance().getAdimplente().isEmpty()) {
-			this.LtAdimplentes.setListData(CtrlUtil.ArrayToArray(ControladorCliente.getInstance().getAdimplente()));
-		}
-		updateInadimplente();
-	}
+    private void updateAdimplente() {
+        this.LtAdimplentes.removeAll();
+        this.LtAdimplentes.setListData(new String[0]);
+        if (!ControladorCliente.getInstance().getAdimplente().isEmpty()) {
+            this.LtAdimplentes.setListData(CtrlUtil.ArrayToArray(ControladorCliente.getInstance().getAdimplente()));
+        }
+        updateInadimplente();
+    }
 
-	private void updateInadimplente() {
-		this.LtInadimplente.removeAll();
-		this.LtInadimplente.setListData(new String[0]);
-		if (!ControladorCliente.getInstance().getInadimplente().isEmpty()) {
-			this.LtInadimplente.setListData(CtrlUtil.ArrayToArray(ControladorCliente.getInstance().getInadimplente()));
-		}
-	}
+    private void updateInadimplente() {
+        this.LtInadimplente.removeAll();
+        this.LtInadimplente.setListData(new String[0]);
+        if (!ControladorCliente.getInstance().getInadimplente().isEmpty()) {
+            this.LtInadimplente.setListData(CtrlUtil.ArrayToArray(ControladorCliente.getInstance().getInadimplente()));
+        }
+    }
 }

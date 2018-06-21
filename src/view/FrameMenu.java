@@ -9,19 +9,19 @@ import control.ControladorRecurso;
 
 public class FrameMenu extends javax.swing.JFrame {
 
-	public FrameMenu() {
-		initComponents();
-		this.LbFuncionario.setText(ControladorFuncionario.getInstance().funcionarioLogadoNome());
-		this.LbTipoFuncionario.setText(ControladorFuncionario.getInstance().funcionarioLogadoTipo());
+    public FrameMenu() {
+        initComponents();
+        this.LbFuncionario.setText(ControladorFuncionario.getInstance().funcionarioLogadoNome());
+        this.LbTipoFuncionario.setText(ControladorFuncionario.getInstance().funcionarioLogadoTipo());
 
-		if (ControladorFuncionario.getInstance().funcionarioLogadoTipo().equals("Funcionario")) {
-			this.BtAmbiente.setEnabled(false);
-			this.BtFuncionario.setEnabled(false);
-			this.BtRecurso.setEnabled(false);
-		}
-	}
+        if (ControladorFuncionario.getInstance().funcionarioLogadoTipo().equals("Funcionario")) {
+            this.BtAmbiente.setEnabled(false);
+            this.BtFuncionario.setEnabled(false);
+            this.BtRecurso.setEnabled(false);
+        }
+    }
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -217,71 +217,71 @@ public class FrameMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtDeslogarActionPerformed
-		ControladorLogin.getInstance().deslogar();
-		this.dispose();
+        ControladorLogin.getInstance().deslogar();
+        this.dispose();
     }//GEN-LAST:event_BtDeslogarActionPerformed
 
     private void BtFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtFuncionarioActionPerformed
-		ControladorFuncionario.getInstance().setView(this);
-		new FrameFuncionario().setVisible(true);
+        ControladorFuncionario.getInstance().setView(this);
+        new FrameFuncionario().setVisible(true);
     }//GEN-LAST:event_BtFuncionarioActionPerformed
 
     private void BtLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtLocacaoActionPerformed
-		ControladorLocacao.getInstance().setView(this);
-		new FrameLocacao().setVisible(true);
+        ControladorLocacao.getInstance().setView(this);
+        new FrameLocacao().setVisible(true);
     }//GEN-LAST:event_BtLocacaoActionPerformed
 
     private void BtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtClienteActionPerformed
-		ControladorCliente.getInstance().setView(this);
-		new FrameCliente().setVisible(true);
+        ControladorCliente.getInstance().setView(this);
+        new FrameCliente().setVisible(true);
     }//GEN-LAST:event_BtClienteActionPerformed
 
     private void BtInadinplenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtInadinplenteActionPerformed
-		ControladorCliente.getInstance().setView(this);
-		new FrameInadimplencia().setVisible(true);
+        ControladorCliente.getInstance().setView(this);
+        new FrameInadimplencia().setVisible(true);
     }//GEN-LAST:event_BtInadinplenteActionPerformed
 
     private void BtAmbienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtAmbienteActionPerformed
-		ControladorAmbiente.getInstance().setView(this);
-		new FrameAmbiente().setVisible(true);
+        ControladorAmbiente.getInstance().setView(this);
+        new FrameAmbiente().setVisible(true);
     }//GEN-LAST:event_BtAmbienteActionPerformed
 
     private void BtRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtRecursoActionPerformed
-		ControladorRecurso.getInstance().setView(this);
-		//new FrameRecurso().setVisible(true);
+        ControladorRecurso.getInstance().setView(this);
+        new FrameRecurso().setVisible(true);
     }//GEN-LAST:event_BtRecursoActionPerformed
 
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		//</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrameMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new FrameMenu().setVisible(true);
-			}
-		});
-	}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrameMenu().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtAmbiente;

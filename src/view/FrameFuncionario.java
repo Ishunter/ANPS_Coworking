@@ -229,6 +229,7 @@ public class FrameFuncionario extends javax.swing.JFrame {
                 String.valueOf(PfSenha2.getPassword()));
         } catch (ExceptionSalvoComSucesso ex) {
             updateComboBox();
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (ExceptionInput ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         } catch (ExceptionCancelar ex) {
